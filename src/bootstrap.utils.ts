@@ -54,7 +54,7 @@ export function bootstrap<M>(module: Type<M>, options: Options): Promise<NgModul
     }
 
     const version = options.packageJson['dependencies']['@angular/core'];
-    const major = getMajor(version);
+    const major = version; //getMajor(version);
     const platformCache = getPlatformCache();
 
     let platform = platformCache.platform[major];
