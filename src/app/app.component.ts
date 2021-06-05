@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { connectRouter } from './router.utils';
 
 declare const require: any;
 
@@ -13,13 +14,10 @@ export class AppComponent {
   ngVersion = require('../../package.json').dependencies['@angular/core'];
 
   constructor(private router: Router) {
-    router.initialNavigation();
   }
 
-  // ngOnInit(): void {
-  //   this.router.navigateByUrl(location.pathname.substr(1));
-  //   window.addEventListener('popstate', () => {
-  //     this.router.navigateByUrl(location.pathname.substr(1));
-  //   });
-  // }
+  ngOnInit(): void {
+    connectRouter(this.router);
+  }
+
 }

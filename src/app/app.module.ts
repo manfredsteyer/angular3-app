@@ -34,7 +34,6 @@ export class AppModule {
 
     customElements.define('angular3-a-element', createCustomElement(AComponent, {injector: this.injector}));
     customElements.define('angular3-b-element', createCustomElement(BComponent, {injector: this.injector}));
-
   }
 
 }

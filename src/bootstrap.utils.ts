@@ -7,7 +7,8 @@ export type Options = {
     packageJson: unknown,
     production: boolean,
     platformFactory?: () => PlatformRef,
-    compilerOptions?: CompilerOptions & BootstrapOptions
+    compilerOptions?: CompilerOptions & BootstrapOptions,
+    cacheKey?: (string) => string,
 };
 
 declare interface BootstrapOptions {
@@ -17,20 +18,28 @@ declare interface BootstrapOptions {
 }
 
 export type PlatformCache = {
-    platform: { [key: string]: PlatformRef }
+    // TODO: correct to platform
+    plattform: { [key: string]: PlatformRef }
 };
 
-function getMajor(version: string): string {
-    const v = version.match(/\d+/)[0];
-    if (!v) {
+export function getMajor(version: string): string {
+    const pre = version.match(/\d+/)[0];
+    const post = version.match(/-.*/);
+
+    if (!pre) {
         throw new Error('Cound not identify major version: ' + version);
     }
-    return v;
+
+    if (post) {
+        return pre + post[0];
+    }
+
+    return pre;
 }
 
 function getPlatformCache(): PlatformCache {
     const platformCache = window as unknown as PlatformCache;
-    platformCache.platform = platformCache.platform || {};
+    platformCache.plattform = platformCache.plattform || {};
     return platformCache;
 }
 
@@ -53,18 +62,23 @@ export function bootstrap<M>(module: Type<M>, options: Options): Promise<NgModul
         options.compilerOptions.ngZone = getNgZone();
     }
 
+    if (!options.cacheKey) {
+        options.cacheKey = key => key;
+    }
+
     const version = options.packageJson['dependencies']['@angular/core'];
-    const major = version; //getMajor(version);
+    const key = options.cacheKey(version); 
     const platformCache = getPlatformCache();
 
-    let platform = platformCache.platform[major];
+    let platform = platformCache.plattform[key];
     if (!platform) {
         platform = options.platformFactory();
-        platformCache.platform[major] = platform; 
+        platformCache.plattform[key] = platform; 
 
         if (options.production) {
             enableProdMode();
         }
     }
+
     return platform.bootstrapModule(module, options.compilerOptions);
 }
