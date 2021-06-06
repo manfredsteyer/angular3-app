@@ -1,6 +1,6 @@
+import { connectRouter } from '@angular-architects/module-federation-tools';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { connectRouter } from './router.utils';
 
 declare const require: any;
 

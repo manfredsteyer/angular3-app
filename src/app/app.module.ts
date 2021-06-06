@@ -1,12 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Injector } from '@angular/core';
 import { createCustomElement } from '@angular/elements';
+import { endsWith } from '@angular-architects/module-federation-tools';
+import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
-import { RouterModule } from '@angular/router';
-import { endsWith } from './router.utils';
 import { AComponent } from './a/a.component';
 import { BComponent } from './b/b.component';
+
 
 @NgModule({
   imports: [

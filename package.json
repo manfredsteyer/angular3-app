@@ -14,7 +14,8 @@
     "webpack": "^5.0.0"
   },
   "dependencies": {
-    "@angular-architects/module-federation": "^1.0.2",
+    "@angular-architects/module-federation": "^12.0.0",
+    "@angular-architects/module-federation-tools": "0.0.2",
     "@angular/animations": "12.0.0-rc.3",
     "@angular/common": "12.0.0-rc.3",
     "@angular/compiler": "12.0.0-rc.3",
