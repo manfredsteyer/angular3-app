@@ -17,7 +17,9 @@ export class AppComponent {
   }
 
   ngOnInit(): void {
-    connectRouter(this.router);
+    // Not needed anymore when using the bootstrap helper with
+    // appType == 'microfrontend'
+    // connectRouter(this.router);
   }
 
 }

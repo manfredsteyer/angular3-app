@@ -1,5 +1,8 @@
 const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
 
+const mf = require('@angular-architects/module-federation/webpack');
+const share = mf.share;
+
 module.exports = {
   output: {
     publicPath: "auto",
@@ -20,12 +23,12 @@ module.exports = {
         './web-components': './src/bootstrap.ts',
       },
 
-      shared: {
-        "@angular/core": { requiredVersion:'12.0.3' }, 
-        "@angular/common": { requiredVersion:'12.0.3' }, 
-        "@angular/router": { requiredVersion:'12.0.3' },
-  "rxjs": {}
-      }
+      shared: share({
+        "@angular/core": { requiredVersion:'auto' }, 
+        "@angular/common": { requiredVersion:'auto' }, 
+        "@angular/router": { requiredVersion:'auto' },
+        "rxjs": { requiredVersion:'auto' }
+      })
     }
 
     )

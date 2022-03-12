@@ -1,26 +1,32 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Injector } from '@angular/core';
 import { createCustomElement } from '@angular/elements';
-import { endsWith } from '@angular-architects/module-federation-tools';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './app.component';
 import { AComponent } from './a/a.component';
 import { BComponent } from './b/b.component';
+import { EmptyComponent } from './empty/empty.component';
 
 
 @NgModule({
   imports: [
     BrowserModule,
     RouterModule.forRoot([
-      { matcher: endsWith('a'), component: AComponent},
-      { matcher: endsWith('b'), component: BComponent},
+      { path: 'angular3/a', component: AComponent },
+      { path: 'angular3/b', component: BComponent },
+
+      // To prevent issues when routing to other micro frontends
+      // a catch-all route should be defined
+      { path: '**', component: EmptyComponent },
+
     ])
   ],
   declarations: [
     AComponent,
     BComponent,
-    AppComponent
+    AppComponent,
+    EmptyComponent
   ],
   providers: [],
   bootstrap: []
